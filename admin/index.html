@@ -2,52 +2,11 @@
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>SportZen69 CMS</title>
-
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
-    <!-- Decap CMS từ jsDelivr (ổn định hơn unpkg) -->
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.min.js"></script>
-
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: system-ui, sans-serif;
-      }
-      .booting {
-        font-size: 1.4rem;
-        color: #444;
-      }
-    </style>
   </head>
   <body>
-    <div class="booting">Đang khởi tạo SportZen69 CMS...</div>
-
-    <script>
-      window.CMS_MANUAL_INIT = true;
-
-      window.addEventListener("load", function () {
-        if (window.CMS && typeof window.CMS.init === "function") {
-          console.log("✅ Decap CMS loaded!");
-          window.CMS.init({ config: { load_config_file: true } });
-        } else {
-          console.error("❌ Decap CMS chưa tải được.");
-        }
-
-        // Tự bật Netlify Identity khi chưa đăng nhập
-        if (window.netlifyIdentity) {
-          window.netlifyIdentity.on("init", user => {
-            if (!user) window.netlifyIdentity.open("login");
-          });
-        }
-      });
-    </script>
+    <!-- Decap CMS (Netlify CMS fork) -->
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
