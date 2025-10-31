@@ -4,38 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SportZen69 CMS</title>
-    <!-- Identity widget MUST load first -->
+    <!-- Chỉ cần load widget Identity + CMS, không tự mở modal -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <div id="nc-root"></div>
-
-    <!-- CMS -->
     <script src="https://unpkg.com/netlify-cms@2.15.72/dist/netlify-cms.js" defer></script>
-
-    <!-- Handle invite & recovery tokens robustly -->
-    <script>
-      function openFlowFromHash() {
-        const h = window.location.hash || "";
-        if (h.includes("recovery_token=") || h.includes("recover?token=")) {
-          netlifyIdentity.open("recovery");     // reset password
-        } else if (h.includes("invite_token=") || h.includes("invite?token=")) {
-          netlifyIdentity.open("signup");       // accept invite & set password
-        }
-      }
-
-      // Init widget then handle hash
-      if (window.netlifyIdentity) {
-        netlifyIdentity.on("init", openFlowFromHash);
-        netlifyIdentity.init();
-      } else {
-        document.addEventListener("DOMContentLoaded", function () {
-          if (window.netlifyIdentity) {
-            netlifyIdentity.on("init", openFlowFromHash);
-            netlifyIdentity.init();
-          }
-        });
-      }
-    </script>
+    <script> netlifyIdentity.init(); </script>
   </body>
 </html>
