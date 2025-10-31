@@ -4,9 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SportZen69 CMS</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <div id="nc-root"></div>
     <script src="https://unpkg.com/netlify-cms@latest/dist/netlify-cms.js" defer></script>
+    <script>
+      if (window.location.hash && window.location.hash.includes('recovery_token=')) {
+        netlifyIdentity.open('recovery');
+      } else if (window.location.hash && window.location.hash.includes('invite_token=')) {
+        netlifyIdentity.open('signup');
+      }
+    </script>
   </body>
 </html>
