@@ -1,56 +1,45 @@
 <!doctype html>
-<html>
+<html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SportZen69 CMS</title>
-
-    <!-- Bắt CMS chờ khởi tạo thủ công -->
-    <script>
-      window.CMS_MANUAL_INIT = true;
-    </script>
-
-    <!-- Decap CMS: dùng bản ổn định -->
-    <script src="https://unpkg.com/decap-cms@2.15.72/dist/decap-cms.js"></script>
-
-    <!-- Netlify Identity widget -->
+    <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Decap CMS (chuẩn CDN, có dist/decap-cms.js) -->
+    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
+    <!-- Nếu unpkg chậm, bạn có thể đổi qua jsDelivr:
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.js"></script>
+    -->
+    <style>
+      html,body{height:100%;margin:0}
+      .booting{display:flex;align-items:center;justify-content:center;
+               height:100%;font:600 26px/1.4 system-ui}
+    </style>
   </head>
   <body>
-    <div id="nc-root"></div>
-    <h2 style="text-align:center;margin-top:100px;font-family:sans-serif;color:#666">
-      Đang khởi tạo SportZen69 CMS...
-    </h2>
-
+    <div class="booting">Đang khởi tạo SportZen69 CMS...</div>
     <script>
-      // Đảm bảo CMS chỉ khởi tạo sau khi DOM sẵn sàng
-      document.addEventListener("DOMContentLoaded", function () {
-        function startCMS() {
-          if (window.CMS && typeof window.CMS.init === "function") {
-            window.CMS.init({
-              config: {
-                load_config_file: true, // Tự đọc file config.yml trong /admin
-              },
-            });
-            console.log("✅ SportZen69 CMS đã khởi tạo");
-          } else {
-            console.log("⏳ Đang chờ CMS sẵn sàng...");
-            setTimeout(startCMS, 200);
-          }
+      // Cho phép khởi tạo thủ công
+      window.CMS_MANUAL_INIT = true;
+
+      // Sau khi script CMS đã tải xong, khởi tạo với config.yml mặc định
+      window.addEventListener('load', function () {
+        if (window.CMS && typeof window.CMS.init === 'function') {
+          window.CMS.init({ config: { load_config_file: true } });
+        } else {
+          console.error('Decap CMS chưa tải được.');
         }
-        startCMS();
       });
 
-      // Xử lý Netlify Identity: tự động reload khi login
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
+      // Tự bật popup đăng nhập nếu chưa có session
+      document.addEventListener('DOMContentLoaded', function () {
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on('init', user => {
+            if (!user) window.netlifyIdentity.open('login');
+          });
+        }
+      });
     </script>
   </body>
 </html>
