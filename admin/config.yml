@@ -5,7 +5,7 @@ backend:
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-publish_mode: editorial_workflow
+site_url: https://sportzen69.netlify.app
 
 collections:
   - name: "posts"
@@ -15,18 +15,6 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Tiêu đề", name: "title", widget: "string" }
-      - { label: "Ngày", name: "date", widget: "datetime" }
-      - { label: "Ảnh đại diện", name: "thumbnail", widget: "image", required: false }
+      - { label: "Ngày đăng", name: "date", widget: "datetime" }
+      - { label: "Ảnh đại diện", name: "thumbnail", widget: "image" }
       - { label: "Nội dung", name: "body", widget: "markdown" }
-
-  - name: "vac"
-    label: "VAC – Mô hình sinh thái"
-    folder: "vac"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Tiêu đề", name: "title", widget: "string" }
-      - { label: "Ngày", name: "date", widget: "datetime" }
-      - { label: "Ảnh minh hoạ", name: "cover", widget: "image", required: false }
-      - { label: "Tóm tắt ngắn", name: "excerpt", widget: "text", required: false }
-      - { label: "Nội dung chi tiết", name: "body", widget: "markdown" }
