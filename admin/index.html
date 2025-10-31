@@ -5,32 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SportZen69 CMS</title>
 
-    <!-- Load Decap CMS (trước là Netlify CMS) -->
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
+    <!-- Decap CMS: dùng bản ổn định 2.15.72 -->
+    <script src="https://unpkg.com/decap-cms@2.15.72/dist/decap-cms.js"></script>
 
-    <!-- Load Netlify Identity Widget -->
+    <!-- Netlify Identity widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
+    <!-- Fallback + root cho CMS (phòng hờ) -->
+    <div id="nc-root"></div>
     <h2 style="text-align:center;margin-top:100px;font-family:sans-serif;color:#666">
       Đang khởi tạo SportZen69 CMS...
     </h2>
 
     <script>
-      function initCMS() {
-        if (window.CMS) {
-          CMS.init();
-        } else {
-          setTimeout(initCMS, 500);
+      // Chờ DOM sẵn rồi mới init để tránh lỗi appendChild
+      document.addEventListener('DOMContentLoaded', function () {
+        function start() {
+          if (window.CMS && typeof window.CMS.init === 'function') {
+            window.CMS.init();
+          } else {
+            setTimeout(start, 200);
+          }
         }
-      }
-      initCMS();
+        start();
+      });
 
+      // Netlify Identity: sau khi login thì quay về /admin/
       if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", (user) => {
+        window.netlifyIdentity.on('init', (user) => {
           if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
+            window.netlifyIdentity.on('login', () => {
+              document.location.href = '/admin/';
             });
           }
         });
