@@ -4,39 +4,47 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SportZen69 CMS</title>
+
     <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- Decap CMS (chuẩn CDN, có dist/decap-cms.js) -->
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
-    <!-- Nếu unpkg chậm, bạn có thể đổi qua jsDelivr:
-    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.js"></script>
-    -->
+
+    <!-- Decap CMS từ jsDelivr (ổn định hơn unpkg) -->
+    <script src="https://cdn.jsdelivr.net/npm/decap-cms@3.0.0/dist/decap-cms.min.js"></script>
+
     <style>
-      html,body{height:100%;margin:0}
-      .booting{display:flex;align-items:center;justify-content:center;
-               height:100%;font:600 26px/1.4 system-ui}
+      html, body {
+        height: 100%;
+        margin: 0;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: system-ui, sans-serif;
+      }
+      .booting {
+        font-size: 1.4rem;
+        color: #444;
+      }
     </style>
   </head>
   <body>
     <div class="booting">Đang khởi tạo SportZen69 CMS...</div>
+
     <script>
-      // Cho phép khởi tạo thủ công
       window.CMS_MANUAL_INIT = true;
 
-      // Sau khi script CMS đã tải xong, khởi tạo với config.yml mặc định
-      window.addEventListener('load', function () {
-        if (window.CMS && typeof window.CMS.init === 'function') {
+      window.addEventListener("load", function () {
+        if (window.CMS && typeof window.CMS.init === "function") {
+          console.log("✅ Decap CMS loaded!");
           window.CMS.init({ config: { load_config_file: true } });
         } else {
-          console.error('Decap CMS chưa tải được.');
+          console.error("❌ Decap CMS chưa tải được.");
         }
-      });
 
-      // Tự bật popup đăng nhập nếu chưa có session
-      document.addEventListener('DOMContentLoaded', function () {
+        // Tự bật Netlify Identity khi chưa đăng nhập
         if (window.netlifyIdentity) {
-          window.netlifyIdentity.on('init', user => {
-            if (!user) window.netlifyIdentity.open('login');
+          window.netlifyIdentity.on("init", user => {
+            if (!user) window.netlifyIdentity.open("login");
           });
         }
       });
