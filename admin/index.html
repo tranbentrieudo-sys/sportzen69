@@ -4,12 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SportZen69 CMS</title>
-    <!-- Chỉ cần load widget Identity + CMS, không tự mở modal -->
+    <link rel="icon" href="/favicon-69.png" />
+    <!-- Netlify Identity (đăng nhập) -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
+    <!-- Chỗ CMS render -->
     <div id="nc-root"></div>
-    <script src="https://unpkg.com/netlify-cms@2.15.72/dist/netlify-cms.js" defer></script>
-    <script> netlifyIdentity.init(); </script>
+
+    <!-- CMS: dùng Decap CMS (tên mới của Netlify CMS) -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+      // Khởi tạo Identity nếu có
+      if (window.netlifyIdentity) { netlifyIdentity.init(); }
+    </script>
   </body>
 </html>
